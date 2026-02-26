@@ -2,6 +2,8 @@ package com.ecom.demo.Service;
 
 import com.ecom.demo.Model.Product;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,5 +37,16 @@ public class ProductsService {
            }
        }
        dummyProducts.set(index,prod);
+    }
+
+    public void deleteProduct(int prodId) {
+        int index=0;
+        for(int i=0;i<dummyProducts.size();i++){
+            if(dummyProducts.get(i).getProdId()==prodId){
+                index=i;
+            }
+        }
+
+        dummyProducts.remove(index);
     }
 }
