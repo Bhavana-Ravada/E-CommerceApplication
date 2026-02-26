@@ -42,7 +42,7 @@ public class ProductsService {
     public void deleteProduct(int prodId) {
         int index=0;
         for(int i=0;i<dummyProducts.size();i++){
-            if  (dummyProducts.get(i).getProdId()==prodId){
+            if (dummyProducts.get(i).getProdId()==prodId){
                 index=i;
             }
         }
