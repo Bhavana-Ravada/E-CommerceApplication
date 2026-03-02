@@ -1,52 +1,36 @@
 package com.ecom.demo.Service;
-
 import com.ecom.demo.Model.Product;
+import com.ecom.demo.Repository.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 @Service
 public class ProductsService {
-    List<Product> dummyProducts= new ArrayList<>(Arrays.asList(
-            new Product(1,"mobile",50000),
-            new Product(2,"laptop",90000),
-            new Product(1,"cosmetics",10000)
-            ));
-   public List<Product> getProducts() {
-        return dummyProducts;
+    @Autowired
+    ProductRepository repo;
+
+    public List<Product> getProducts(){
+        return repo.findAll();
     }
+
     public Product getProductsById(int prodId){
-       return dummyProducts.stream()
-               .filter(p ->p.getProdId()==prodId)
-               .findFirst().get();
+        return repo.findById(prodId)
+                .orElseThrow(()-> new RuntimeException("product not found"));
     }
 
     public void addProduct(Product prod) {
-       dummyProducts.add(prod);
+        repo.save(prod);
     }
 
+
     public void updateProduct(Product prod) {
-       int index=0;
-       for(int i=0;i<dummyProducts.size();i++){
-           if (dummyProducts.get(i).getProdId()==prod.getProdId()){
-               index=1;
-               break;
-           }
-       }
-       dummyProducts.set(index,prod);
+        repo.save(prod);
     }
 
     public void deleteProduct(int prodId) {
-        int index=0;
-        for(int i=0;i<dummyProducts.size();i++){
-            if(dummyProducts.get(i).getProdId()==prodId){
-                index=i;
-            }
-        }
-
-        dummyProducts.remove(index);
+        repo.deleteById(prodId);
     }
 }
