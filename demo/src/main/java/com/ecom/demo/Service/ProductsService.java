@@ -25,12 +25,15 @@ public class ProductsService {
         repo.save(prod);
     }
 
-
     public void updateProduct(Product prod) {
         repo.save(prod);
     }
 
     public void deleteProduct(int prodId) {
         repo.deleteById(prodId);
+    }
+
+    public List<Product> getProductsByPriceLessThan(double price) {
+        return repo.findProductsByPriceLessThan(price);
     }
 }

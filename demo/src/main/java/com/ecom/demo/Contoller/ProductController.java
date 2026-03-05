@@ -36,4 +36,8 @@ public class ProductController {
         prodServ.deleteProduct(prodId);
 
     }
+    @GetMapping("productsPrice/{price}")
+    List<Product> getProductsByPriceLessThan(@PathVariable double price){
+        return prodServ.getProductsByPriceLessThan(price);
+    }
 }
